@@ -159,7 +159,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/24/feature-detect/" class="post-title-link" itemprop="url">人脸马赛克</a>
+            <a href="/2020/09/24/feature-detect/" class="post-title-link" itemprop="url">图像处理--油画,漫画滤镜</a>
         </h2>
 
         <div class="post-meta">
@@ -176,7 +176,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-28 09:04:07" itemprop="dateModified" datetime="2020-09-28T09:04:07+08:00">2020-09-28</time>
+                <time title="Modified: 2020-09-28 14:47:42" itemprop="dateModified" datetime="2020-09-28T14:47:42+08:00">2020-09-28</time>
               </span>
 
           
@@ -190,18 +190,40 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="图像处理-油画滤镜与漫画滤镜"><a href="#图像处理-油画滤镜与漫画滤镜" class="headerlink" title="图像处理-油画滤镜与漫画滤镜"></a>图像处理-油画滤镜与漫画滤镜</h2><p><strong>概述：</strong></p>
-<p>油画：<img src="../image/oil.jpg"></p>
-<img src="images\oil.jpg" style="zoom:%;" />
-
+          <p><strong>概述：</strong></p>
+<p>油画：<img src="../images/oil.jpg"></p>
 <hr>
 <p><strong>油画算法：</strong></p>
 <ol>
-<li>统计卷积核范围框内的像素等级</li>
+<li>确定核大小，并获得图像的灰度图</li>
+<li>统计灰度图卷积核范围框内的像素等级</li>
 <li>将等级最多的像素的像素值获取平均值</li>
 <li>当前像素值设置为平均值</li>
 </ol>
+<p><strong>关键代码：</strong></p>
+<p>[^附加第三方库：opencv，使用其中cvtColor,canny,以及访问像素的方法Mat.at]: </p>
+<p>灰度图：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cvtColor(srcImgae,gray,CV_BGR2GRAY);</span><br></pre></td></tr></table></figure>
+
+<p>统计等级：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;core_size;i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;core_size;j++)&#123;</span><br><span class="line">        <span class="keyword">int</span> level = <span class="keyword">int</span>(gray.at&lt;uchar&gt;(y+j-core_size/<span class="number">2</span>,x+i-core_size/<span class="number">2</span>)/level_len);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>漫画算法</strong></p>
+<ol>
+<li>获得原图像的油画模板图</li>
+<li>获得原图像的边缘图并求反，因为通常边缘图边缘表现白色为255，而我们需要用黑色表示边缘线</li>
+<li>将边缘图归一化为0-1，以至于能够作为运算的权值</li>
+<li>将1和2的图像进行点乘运算，得到目标图像</li>
+</ol>
+<p>效果：</p>
+<p><img src="../images/cartoon.jpg"></p>
+<p><strong>关键代码：</strong></p>
+<p>边缘图</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cvtColor(src,gray,CV_BGR2GRAY);</span><br><span class="line">canny(gray,gray,<span class="number">100</span>,<span class="number">255</span>,<span class="number">3</span>,<span class="literal">false</span>);</span><br><span class="line">gray = <span class="number">255</span> - gray;</span><br><span class="line">gray.convertTo(gray,CV_32FC1);</span><br><span class="line">gray = gray / <span class="number">255</span>;</span><br></pre></td></tr></table></figure>
+
+<p>​    卡通图</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst.at&lt;Vec3b&gt;(y,x)[c] = oil.at&lt;Vec3b&gt;(y,x)[c] * gray.at&lt;<span class="keyword">float</span>&gt;(y,x);</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
