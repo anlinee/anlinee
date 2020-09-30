@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://example.com/2020/09/29/images/assimp_structure.jpg">
 <meta property="og:image" content="http://example.com/2020/09/29/images/scene_code.jpg">
 <meta property="article:published_time" content="2020-09-29T02:29:25.000Z">
-<meta property="article:modified_time" content="2020-09-29T02:58:21.300Z">
+<meta property="article:modified_time" content="2020-09-30T10:00:57.284Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="opengl">
 <meta name="twitter:card" content="summary">
@@ -176,10 +176,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-09-29 10:29:25 / Modified: 10:58:21" itemprop="dateCreated datePublished" datetime="2020-09-29T10:29:25+08:00">2020-09-29</time>
+              <time title="Created: 2020-09-29 10:29:25" itemprop="dateCreated datePublished" datetime="2020-09-29T10:29:25+08:00">2020-09-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-30 18:00:57" itemprop="dateModified" datetime="2020-09-30T18:00:57+08:00">2020-09-30</time>
+              </span>
 
           
 
@@ -206,6 +212,12 @@
 <li>将所有数据保存为自己的数据结构中</li>
 <li>对数据进行操作，然后又转换成模型进行显示</li>
 </ol>
+<p><strong>分析</strong></p>
+<ul>
+<li>加载模型：会得到一个aiScene</li>
+<li>遍历所有的node</li>
+<li>对每一个node进行绘制即可，我们可以将node看成一个小的场景</li>
+</ul>
 
     </div>
 
