@@ -168,10 +168,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-12-04 17:46:34 / Modified: 18:04:40" itemprop="dateCreated datePublished" datetime="2020-12-04T17:46:34+08:00">2020-12-04</time>
+              <time title="Created: 2020-12-04 17:46:34" itemprop="dateCreated datePublished" datetime="2020-12-04T17:46:34+08:00">2020-12-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-08 18:04:37" itemprop="dateModified" datetime="2020-12-08T18:04:37+08:00">2020-12-08</time>
+              </span>
 
           
 
@@ -192,6 +198,30 @@
 <p>1.自tensorflow2.0发布，tensorflow1.0与tensorflow2.0几乎是两个深度学习框架，许多函数被废弃</p>
 <p>2.个人复现paper时候，出现大量不同版本的tensorflow，很难去理解清楚</p>
 <p>3.tensorflow主要用python完成，由于语言陌生问题，不易使用</p>
+<p><strong><em>3.tensorflow源码目录</em></strong></p>
+<p><img src="../images/tensorflow/source_code.jpg"></p>
+<p>源目录当中3个文件夹：tensorflow，third_party，tools其中tensorflow存放源代码，至于third_party,tools与部署环境有关的文件</p>
+<p>进入tensorflow源码文件夹</p>
+<p><img src="../images/tensorflow/tf_source.jpg"></p>
+<p>一共两类文件夹：</p>
+<ul>
+<li><p>以语言命名c，cc，go，java，js，python都是在不同语言的编译源码</p>
+</li>
+<li><p>功能文件，compiler编译器，core核心代码，example实例程序</p>
+</li>
+</ul>
+<hr>
+<p><strong><em>4.tensorflow core核心代码</em></strong></p>
+<p>tensorflow中几乎所有的代码全部封装在core文件目录，core也是tensorflow最重要的部分，目录如下：</p>
+<p><img src="../images/tensorflow/tf_core.jpg"></p>
+<ul>
+<li>common_runtime包含tensorflow的session通用逻辑流程,包括对内存，驱动的控制</li>
+<li>distributed_runtime 包含tensorflow 与分布式相关的执行逻辑</li>
+<li>framework对tensorflow进行计算过程中的通用组件进行定义和实现</li>
+<li>graph tensorflow，定义图相关的逻辑</li>
+<li>kernels是tensorflow中各个单步操作的具体实现</li>
+</ul>
+<p><u>在上述core文件外，python文件目录是最重要的文件目录，里边封装几乎所有的且可以应用的神经网络以及各种网络搭建和训练</u></p>
 
       
     </div>
